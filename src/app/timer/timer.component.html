@@ -1,0 +1,8 @@
+<ActionBar title="タイマー"></ActionBar>
+
+<StackLayout class="p-4">
+  <Label [text]="isWorking ? '作業時間' : '休憩時間'" class="text-2xl text-center m-2"></Label>
+  <Label [text]="formatTime(currentTime)" class="text-4xl text-center m-4"></Label>
+  <Button [text]="isRunning ? '一時停止' : '開始'" (tap)="toggleTimer()" class="btn btn-primary m-2"></Button>
+  <Button text="リセット" (tap)="resetTimer()" class="btn btn-secondary m-2"></Button>
+</StackLayout>

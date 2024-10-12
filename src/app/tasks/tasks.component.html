@@ -1,0 +1,44 @@
+<ActionBar title="タスク"></ActionBar>
+
+<StackLayout class="p-4">
+  <GridLayout rows="auto, auto, auto, auto, auto" columns="*, auto" class="m-2">
+    <TextField row="0" col="0" [(ngModel)]="newTaskName" hint="新しいタスクを入力" class="input"></TextField>
+    <DatePicker row="1" col="0" [(ngModel)]="newTaskDueDate"></DatePicker>
+    <ListPicker row="2" col="0" [items]="['Not Started', 'In Progress', 'Completed']" [(ngModel)]="newTaskStatus"></ListPicker>
+    <TextView row="3" col="0" [(ngModel)]="newTaskMemo" hint="メモ" class="input"></TextView>
+    <Button row="4" col="0" text="追加" (tap)="addTask()" class="btn btn-primary"></Button>
+  </GridLayout>
+
+  <SegmentedBar [items]="segmentedBarItems" (selectedIndexChange)="onViewModeChange($event)"></SegmentedBar>
+
+  <StackLayout [visibility]="viewMode === 'list' ? 'visible' : 'collapsed'">
+    <ListView [items]="tasks" class="list-group">
+      <ng-template let-task="item">
+        <GridLayout rows="auto, auto" columns="auto, *, auto" class="list-group-item">
+          <CheckBox row="0" col="0" [checked]="task.completed" (tap)="toggleTaskCompletion(task)"></CheckBox>
+          <StackLayout row="0" col="1">
+            <Label [text]="task.name" class="h2"></Label>
+            <Label [text]="'期日: ' + task.dueDate.toLocaleDateString()" class="body"></Label>
+            <Label [text]="'ステータス: ' + task.status" class="body"></Label>
+            <Label [text]="'メモ: ' + task.memo" class="body"></Label>
+          </StackLayout>
+          <Button row="0" col="2" text="削除" (tap)="deleteTask(task.id)" class="btn btn-danger"></Button>
+        </GridLayout>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+
+  <GridLayout [visibility]="viewMode === 'calendar' ? 'visible' : 'collapsed'" rows="auto, *" columns="*">
+    <Label row="0" text="カレンダービュー" class="h2 text-center"></Label>
+    <ScrollView row="1">
+      <WrapLayout>
+        <StackLayout *ngFor="let day of getCurrentMonthDays()" class="calendar-day">
+          <Label [text]="day.getDate()" class="text-center"></Label>
+          <StackLayout *ngFor="let task of getTasksForDate(day)" class="calendar-task">
+            <Label [text]="task.name" class="task-name"></Label>
+          </StackLayout>
+        </StackLayout>
+      </WrapLayout>
+    </ScrollView>
+  </GridLayout>
+</StackLayout>

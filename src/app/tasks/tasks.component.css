@@ -1,0 +1,17 @@
+.calendar-day {
+  width: 14%;
+  height: 100;
+  border-width: 1;
+  border-color: #ccc;
+}
+
+.calendar-task {
+  background-color: #e6e6e6;
+  border-radius: 5;
+  margin: 2;
+  padding: 2;
+}
+
+.task-name {
+  font-size: 10;
+}

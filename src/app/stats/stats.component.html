@@ -1,0 +1,8 @@
+<ActionBar title="統計"></ActionBar>
+
+<StackLayout class="p-4">
+  <Label text="今日の統計" class="text-2xl text-center m-2"></Label>
+  <Label [text]="'総作業時間: ' + (totalWorkTime / 60).toFixed(1) + '時間'" class="text-lg m-2"></Label>
+  <Label [text]="'タスク完了率: ' + getCompletionRate().toFixed(1) + '%'" class="text-lg m-2"></Label>
+  <Label [text]="'完了タスク: ' + completedTasks + ' / ' + totalTasks" class="text-lg m-2"></Label>
+</StackLayout>
